@@ -1,0 +1,47 @@
+version: '3.1'
+
+services:
+
+  auth_db:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: auth_db
+      POSTGRES_DB: auth_db
+      POSTGRES_USER: auth_db
+    ports:
+      - 5432:5432
+
+  product_db:
+    image: postgres:11
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: product_db
+      POSTGRES_DB: product_db
+      POSTGRES_USER: product_db
+    ports:
+      - 5433:5432
+
+  sales-db:
+    image: mongo
+    container_name: sales-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: sales
+      MONGO_INITDB_ROOT_PASSWORD: sales
+      MONGO_INITDB_DATABASE: sales
+    ports:
+      - 27017:27017
+      - 28017:28017
+
+  sales_rabbit:
+    image: rabbitmq:3-management
+    container_name: sales_rabbit
+    restart: always
+    ports:
+      - 5672:5672
+      - 25676:25676
+      - 15672:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: rabbit
