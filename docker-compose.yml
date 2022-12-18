@@ -46,7 +46,38 @@ services:
       RABBITMQ_DEFAULT_USER: rabbit
       RABBITMQ_DEFAULT_PASS: rabbit
 
+  auth-api:
+    build: ./auth-api
+    restart: always
+    ports:
+    - 8080:8080
+    depends_on:
+      - auth_db
+    volumes:
+      - ./auth-api:/app
+      - nodemodules:/app/node_modules
+
+  product-api:
+    build: ./product-api
+    ports:
+    - 8081:8081
+    depends_on:
+      - product_db
+    volumes:
+      - ./product-api:/app
+      - nodemodules:/app/node_modules
+
+  sales-api:
+    build: ./sales-api
+    restart: always
+    ports:
+    - 8082:8082
+    depends_on:
+      - sales_db
+    volumes:
+      - ./sales-api:/app
+      - nodemodules:/app/node_modules
+
 
 volumes:
-  - node:
-  - java: 
+  nodemodules: {}
