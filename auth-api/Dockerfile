@@ -4,12 +4,18 @@ WORKDIR /app
 
 COPY package.json /app
 
-RUN yarn
+
+
+RUN npm i sequelize -g
+RUN npm i sequelize-bcrypt
+
+RUN npm install -g nodemon 
+RUN yarn 
 
 COPY . .
 
 EXPOSE 8080
 
-CMD [ "node", "src/app.js" ]
+CMD npm run start
 
 

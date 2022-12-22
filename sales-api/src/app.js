@@ -6,12 +6,12 @@ const port = env.PORT || 8082
 
 app.get('/api/status', (req, res) => {
   return res.status(200).json({
-    service: 'Sales-API',
+    service: 'Sales-APIs',
     status: "up",
     httpStatus: 200
   })
 })
 
 app.listen(port, () => {
-  console.log(`Server started  sales successfully at port ${port}`)
+  console.log(`Server started  sales successfully at ports ${port}`)
 })

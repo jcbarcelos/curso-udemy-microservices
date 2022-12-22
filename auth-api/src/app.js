@@ -1,24 +1,16 @@
 import express from 'express'
+import * as db from './config/db/initialData.js'
+import router from './modules/user/routes/UserRoutes.js'
 
 const app = express()
 const env = process.env
-const port = env.PORT || 8080
+const PORT = env.PORT || 8080
 
-app.get('/api/status', (req, res) => {
-  return res.status(200).json({
-    service: 'Auth-API',
-    status: "up",
-    httpStatus: 200
-  })
-})
-app.get('/api', (req, res) => {
-  return res.status(200).json({
-    service: 'Auth-API',
-    status: "up",
-    httpStatus: 200
-  })
-})
+//db.createInitalData()
 
-app.listen(port, () => {
-  console.log(`Server started auth successfully at port ${port}`)
+app.use(express.json())
+app.use(router)
+
+app.listen(PORT, () => {
+  console.log(`Server started auth successfully at port ${PORT}`)
 })

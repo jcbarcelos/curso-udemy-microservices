@@ -2,12 +2,13 @@ FROM node:14
 
 WORKDIR /app
 
-COPY package.json /app/
+COPY package.json /app
 
-RUN yarn 
+RUN  npm install -g nodemon 
+RUN  npm install 
 
 COPY . .
 
 EXPOSE 8082
 
-CMD [ "node", "src/app.js" ]
+CMD npm run start
