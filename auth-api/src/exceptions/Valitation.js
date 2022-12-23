@@ -1,5 +1,8 @@
-import { BAD_REQUEST } from '../config/constants/index.js'
-import { messageErrorNotFound, messageNotInformed } from '../helps/index.js'
+import { response } from 'express'
+import { BAD_REQUEST, FORBINDDEN } from '../config/constants/index.js'
+import { ReturnErrorJson, messageErrorNotFound, messageNotInformed } from '../helps/index.js'
+import { messageErrorAuthenticatedUser } from '../helps/messages.js'
+import returnJsonError from '../helps/returnJsonError.js'
 import { ExceptionValidation } from './index.js'
 
 class Validation {
@@ -19,11 +22,20 @@ class Validation {
       )
     }
   }
-  async validationNotFound(params) {
-    if (!params) {
+  async validationNotFound(user) {
+    if (!user) {
       throw new ExceptionValidation(
         BAD_REQUEST,
-        `${params} ${messageErrorNotFound}`,
+        `${user} ${messageErrorNotFound}`,
+      )
+    }
+  }
+  async validationAuthenticatedUser(user, authUser) {
+    console.log('validationAuthenticatedUser', user.dataValues.id, authUser.id)
+    if (user.dataValues.id !== authUser.id) {
+      throw new ExceptionValidation(
+        FORBINDDEN,
+        `${messageErrorAuthenticatedUser}`,
       )
     }
   }

@@ -10,6 +10,11 @@ export async function createInitalData() {
       email: 'test@example.com',
       password: password,
     })
+    await User.create({
+      name: 'user_test2',
+      email: 'test2@example.com',
+      password: password,
+    })
   } catch (error) {
     console.error(error)
   }

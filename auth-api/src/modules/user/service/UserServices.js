@@ -1,8 +1,10 @@
 import { API_SECRET } from '../../../config/auth/api_secrets.js'
-import { SUCCESS, UNAUTHORIZED } from '../../../config/constants/index.js'
-
+import {
+  FORBINDDEN,
+  SUCCESS,
+  UNAUTHORIZED,
+} from '../../../config/constants/index.js'
 import { ExceptionValidation, Validation } from '../../../exceptions/index.js'
-
 import {
   messageAcessTokenNotUnauthorized,
   messagePasswordNotMatch,
@@ -11,14 +13,20 @@ import {
 import UserRepository from '../repository/UserRepository.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { messageErrorAuthenticatedUser } from '../../../helps/messages.js'
+import { response } from 'express'
+import Valitation from '../../../exceptions/Valitation.js'
 
 class UserService {
   async findByEmail(request) {
     try {
       const { email } = request.params
+      const { authUser } = request
       Validation.validationValueData(email)
       let user = await UserRepository.findByEmail(email)
-      Validation.validationNotFound(request.params)
+
+      await Valitation.validationAuthenticatedUser(user, authUser)
+    
       return {
         status: SUCCESS,
         user: {

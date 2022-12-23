@@ -4,6 +4,7 @@ const messageErrorAuthAuthorization =
 const messageAcessTokenNotUnauthorized = 'Email and password must be informed'
 const messageNotInformed = ' was not informed.'
 const messagePasswordNotMatch = "Password or Email doesn't match"
+const messageErrorAuthenticatedUser = 'You cannot see this user data'
 
 export {
   messageErrorNotFound,
@@ -11,4 +12,6 @@ export {
   messageNotInformed,
   messagePasswordNotMatch,
   messageErrorAuthAuthorization,
+  messageErrorAuthenticatedUser
+  
 }
