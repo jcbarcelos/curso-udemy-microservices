@@ -1,9 +1,8 @@
-import {
-  SUCCESS,
-  UNAUTHORIZED,
-  BAD_REQUEST,
-} from '../../../config/constants/index.js'
-import Validation from '../../../exceptions/Valitation.js'
+import { API_SECRET } from '../../../config/auth/api_secrets.js'
+import { SUCCESS, UNAUTHORIZED } from '../../../config/constants/index.js'
+
+import { ExceptionValidation, Validation } from '../../../exceptions/index.js'
+
 import {
   messageAcessTokenNotUnauthorized,
   messagePasswordNotMatch,
@@ -19,7 +18,7 @@ class UserService {
       const { email } = request.params
       Validation.validationValueData(email)
       let user = await UserRepository.findByEmail(email)
-      Validation.validationNotFound(email)
+      Validation.validationNotFound(request.params)
       return {
         status: SUCCESS,
         user: {
@@ -36,26 +35,33 @@ class UserService {
   async getAccessToken(request, response) {
     try {
       const { email, password } = request.body
-      this.validationAccessToken(email, password)
+
+      await this.validationAccessToken(email, password)
       let user = await UserRepository.findByEmail(email)
-      Validation.validationNotFound(user)
+      await Validation.validationNotFoundAuth(user.email)
       await this.validationPassword(password, user.password)
       let authUser = {
         id: user.id,
         name: user.name,
         email: user.email,
       }
-      // const accessToken = jwt.sign({authUser}, ,{exirenIn: 'id'})
+      const accessToken = jwt.sign({ authUser }, API_SECRET, {
+        expiresIn: '1d',
+      })
+      return {
+        status: SUCCESS,
+        accessToken: accessToken,
+      }
     } catch (error) {
-      ReturnErrorJson.ErroJson(error)
+      return ReturnErrorJson.ErroJson(error)
     }
   }
 
-  validationAccessToken(email, password) {
-    if (!email || !password) {
+  async validationAccessToken(email, password) {
+    if (!email || !password || email === undefined) {
       throw new ExceptionValidation(
         UNAUTHORIZED,
-        `${messageAcessTokenNotUnauthorized}`,
+        `email or password ${messageAcessTokenNotUnauthorized}`,
       )
     }
   }

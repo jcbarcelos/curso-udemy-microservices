@@ -6,7 +6,6 @@ class UserRepository {
     try {
       return await User.findById({ where: { id } })
     } catch (error) {
-      console.error(error.message)
       return {
         message: `${id} ${messageErrorNotFound}`,
       }
@@ -16,7 +15,6 @@ class UserRepository {
     try {
       return await User.findOne({ where: { email } })
     } catch (error) {
-      console.error(error.message)
       return {
         message: `${email} ${messageErrorNotFound}`,
       }

@@ -1,4 +1,4 @@
-class ExceptionValidation extends Error {
+class AuthValidation extends Error {
   constructor(status, message) {
     super(message)
     this.status = status
@@ -8,4 +8,4 @@ class ExceptionValidation extends Error {
   }
 }
 
-export default ExceptionValidation
+export default AuthValidation

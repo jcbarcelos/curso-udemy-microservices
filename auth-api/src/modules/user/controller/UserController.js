@@ -1,7 +1,11 @@
 import UserServices from '../service/UserServices.js'
 
 class UserController {
-  async getAccessToken(request, response) {}
+  async getAccessToken(request, response) {
+    let accessToken = await UserServices.getAccessToken(request, response)
+
+    return response.status(accessToken?.status).json(accessToken)
+  }
 
   async findByEmail(request, response) {
     let user = await UserServices.findByEmail(request)
