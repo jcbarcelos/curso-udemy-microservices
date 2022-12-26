@@ -1,0 +1,85 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ------------------------< com.product:product >-------------------------
+[INFO] Building product 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:3.0.1:run (default-cli) > test-compile @ product >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.0:resources (default-resources) @ product ---
+[INFO] Copying 1 resource
+[INFO] Copying 0 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:compile (default-compile) @ product ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 3 source files to /mnt/15A9598F1AB84E80/cursos/microservices/node/udemy-micro/product/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.0:testResources (default-testResources) @ product ---
+[INFO] skip non existing resourceDirectory /mnt/15A9598F1AB84E80/cursos/microservices/node/udemy-micro/product/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.10.1:testCompile (default-testCompile) @ product ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to /mnt/15A9598F1AB84E80/cursos/microservices/node/udemy-micro/product/target/test-classes
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:3.0.1:run (default-cli) < test-compile @ product <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:3.0.1:run (default-cli) @ product ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.0.1)
+
+2022-12-24T16:54:41.427-03:00  INFO 216038 --- [  restartedMain] com.product.product.ProductApplication   : Starting ProductApplication using Java 17.0.5 with PID 216038 (/mnt/15A9598F1AB84E80/cursos/microservices/node/udemy-micro/product/target/classes started by jc in /mnt/15A9598F1AB84E80/cursos/microservices/node/udemy-micro/product)
+2022-12-24T16:54:41.430-03:00  INFO 216038 --- [  restartedMain] com.product.product.ProductApplication   : No active profile set, falling back to 1 default profile: "default"
+2022-12-24T16:54:41.471-03:00  INFO 216038 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2022-12-24T16:54:41.471-03:00  INFO 216038 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2022-12-24T16:54:42.042-03:00  INFO 216038 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-12-24T16:54:42.059-03:00  INFO 216038 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 10 ms. Found 0 JPA repository interfaces.
+2022-12-24T16:54:42.235-03:00  INFO 216038 --- [  restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7c9b5401-8c9e-3371-b860-50fdb776490b
+2022-12-24T16:54:42.721-03:00  INFO 216038 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
+2022-12-24T16:54:42.730-03:00  INFO 216038 --- [  restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-12-24T16:54:42.730-03:00  INFO 216038 --- [  restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.4]
+2022-12-24T16:54:42.777-03:00  INFO 216038 --- [  restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-12-24T16:54:42.778-03:00  INFO 216038 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1305 ms
+2022-12-24T16:54:42.904-03:00  INFO 216038 --- [  restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-12-24T16:54:42.938-03:00  INFO 216038 --- [  restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.6.Final
+2022-12-24T16:54:43.066-03:00  WARN 216038 --- [  restartedMain] org.hibernate.orm.deprecation            : HHH90000021: Encountered deprecated setting [javax.persistence.sharedCache.mode], use [jakarta.persistence.sharedCache.mode] instead
+2022-12-24T16:54:43.152-03:00  INFO 216038 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-12-24T16:54:43.238-03:00  INFO 216038 --- [  restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4fc656ec
+2022-12-24T16:54:43.239-03:00  INFO 216038 --- [  restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-12-24T16:54:43.260-03:00  INFO 216038 --- [  restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+Hibernate: drop table if exists product cascade
+2022-12-24T16:54:43.817-03:00  WARN 216038 --- [  restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-12-24T16:54:43.818-03:00  WARN 216038 --- [  restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "product" does not exist, skipping
+Hibernate: drop sequence if exists product_seq
+2022-12-24T16:54:43.819-03:00  WARN 216038 --- [  restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2022-12-24T16:54:43.819-03:00  WARN 216038 --- [  restartedMain] o.h.engine.jdbc.spi.SqlExceptionHelper   : sequence "product_seq" does not exist, skipping
+Hibernate: create sequence product_seq start with 1 increment by 50
+Hibernate: create table product (id integer not null, name varchar(255), primary key (id))
+2022-12-24T16:54:43.839-03:00  INFO 216038 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-12-24T16:54:43.846-03:00  INFO 216038 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-12-24T16:54:43.894-03:00  WARN 216038 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-12-24T16:54:44.340-03:00  INFO 216038 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2022-12-24T16:54:44.409-03:00  INFO 216038 --- [  restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
+2022-12-24T16:54:44.423-03:00  INFO 216038 --- [  restartedMain] com.product.product.ProductApplication   : Started ProductApplication in 3.421 seconds (process running for 3.81)
+2022-12-24T16:55:01.084-03:00  INFO 216038 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-12-24T16:55:01.085-03:00  INFO 216038 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-12-24T16:55:01.088-03:00  INFO 216038 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2022-12-24T16:55:06.529-03:00  INFO 216038 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-12-24T16:55:06.530-03:00  INFO 216038 --- [ionShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+Hibernate: drop table if exists product cascade
+Hibernate: drop sequence if exists product_seq
+2022-12-24T16:55:06.538-03:00  INFO 216038 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-12-24T16:55:06.542-03:00  INFO 216038 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  29.200 s
+[INFO] Finished at: 2022-12-24T16:55:06-03:00
+[INFO] ------------------------------------------------------------------------
