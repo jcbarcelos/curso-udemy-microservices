@@ -1,5 +1,7 @@
-package com.product.product.modules;
+package com.product.product.modules.product.model;
 
+
+import com.product.product.config.exception.EntityWithUUID;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,10 +12,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+public class Product  extends EntityWithUUID {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Integer id;
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "id", nullable = false)
+  private Long id;
 
   @Column(name = "name", nullable = false)
   private String name;
