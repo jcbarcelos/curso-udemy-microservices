@@ -22,6 +22,7 @@ services:
       POSTGRES_PASSWORD: product_db
       POSTGRES_DB: product_db
       POSTGRES_USER: product_db
+      PORT: 5433
     ports:
       - 5433:5432
     networks:
@@ -35,6 +36,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: sales
       MONGO_INITDB_ROOT_PASSWORD: sales
       MONGO_INITDB_DATABASE: sales
+      PORT: 27017
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
@@ -73,8 +75,8 @@ services:
     networks:
       - microservices
 
-  product-api:
-    build: './product-api'
+  product:
+    build: './product'
     environment:
       - PORT=8081
     ports:
@@ -82,8 +84,9 @@ services:
     depends_on:
       - product_db
     volumes:
-      - ./product-api:/app
-      - nodemodulesproduct:/app/node_modules
+      - ./product:/app
+      - /home/jc/.m2:/root/.m2
+
     networks:
       - microservices
 
@@ -95,8 +98,8 @@ services:
       - PORT=8082
     ports:
       - 8082:8082
-    # depends_on:
-    #   - sales_db
+    depends_on:
+      - sales_db
     volumes:
       - ./sales-api:/app
       - nodemodulessales:/app/node_modules
@@ -106,7 +109,7 @@ services:
 
 volumes:
   nodemodulesauth: {}
-  nodemodulesproduct: {}
+  valumeproduct: {}
   nodemodulessales: {}
 
 networks:

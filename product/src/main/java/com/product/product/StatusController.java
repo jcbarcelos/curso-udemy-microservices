@@ -1,4 +1,4 @@
-package br.com.cursoudemy.productapi;
+package com.product.product;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
