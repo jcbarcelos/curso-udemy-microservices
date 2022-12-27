@@ -1,8 +1,8 @@
-package com.product.product.modules.product.controller;
+package com.product.product.modules.supplier.controller;
 
-import com.product.product.modules.product.dto.SupplierRequest;
-import com.product.product.modules.product.dto.SupplierResponse;
-import com.product.product.modules.product.service.SupplierService;
+import com.product.product.modules.supplier.dto.SupplierRequest;
+import com.product.product.modules.supplier.dto.SupplierResponse;
+import com.product.product.modules.supplier.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

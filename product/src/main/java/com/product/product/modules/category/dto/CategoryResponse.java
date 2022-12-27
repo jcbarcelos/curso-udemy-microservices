@@ -1,7 +1,8 @@
-package com.product.product.modules.product.dto;
+package com.product.product.modules.category.dto;
 
 
-import com.product.product.modules.product.model.Category;
+
+import com.product.product.modules.category.model.Category;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 

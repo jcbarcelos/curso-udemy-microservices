@@ -1,11 +1,11 @@
-package com.product.product.modules.product.model;
-import com.product.product.config.exception.EntityWithUUID;
-import com.product.product.modules.product.dto.CategoryRequest;
-import com.product.product.modules.product.dto.SupplierRequest;
+package com.product.product.modules.supplier.model;
+
+
+import com.product.product.modules.supplier.dto.SupplierRequest;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
 import org.springframework.beans.BeanUtils;
 
 @Data
@@ -13,20 +13,19 @@ import org.springframework.beans.BeanUtils;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Supplier extends EntityWithUUID {
+public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
-
 
     public static Supplier of(SupplierRequest supplierRequest) {
         var supplier = new Supplier();
         BeanUtils.copyProperties(supplierRequest, supplier);
         return supplier;
     }
-
 }
+

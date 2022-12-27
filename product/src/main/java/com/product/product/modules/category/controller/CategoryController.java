@@ -1,9 +1,8 @@
-package com.product.product.modules.product.controller;
+package com.product.product.modules.category.controller;
 
-import com.product.product.modules.product.dto.CategoryRequest;
-import com.product.product.modules.product.dto.CategoryResponse;
-import com.product.product.modules.product.model.Category;
-import com.product.product.modules.product.service.CategoryService;
+import com.product.product.modules.category.dto.CategoryRequest;
+import com.product.product.modules.category.dto.CategoryResponse;
+import com.product.product.modules.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,8 +29,6 @@ public class CategoryController {
         categorysave3.setDescription("Books");
         categoryService.save(categorysave1);
         categoryService.save(categorysave2);
-
-
         return categoryService.save(categorysave3);
     }
 
