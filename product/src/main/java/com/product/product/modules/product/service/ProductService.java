@@ -11,6 +11,7 @@ import com.product.product.modules.supplier.repository.SupplierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.util.ObjectUtils.isEmpty;
@@ -37,6 +38,7 @@ public class ProductService {
         return ProductResponse.of(product);
     }
 
+
     private void validateProductDataInformed(ProductRequest productRequest) {
         if (isEmpty(productRequest.getName())) {
             throw new ValidationException("The product name was not informed.");
@@ -55,7 +57,7 @@ public class ProductService {
             throw new ValidationException("The product category was not informed.");
         }
         if (isEmpty(productRequest.getSupplierId())) {
-            throw new ValidationException("The product category  was not informed.");
+            throw new ValidationException("The product supplier  was not informed.");
         }
     }
 }

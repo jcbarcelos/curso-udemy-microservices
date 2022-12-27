@@ -4,12 +4,10 @@ import com.product.product.modules.category.dto.CategoryRequest;
 import com.product.product.modules.category.dto.CategoryResponse;
 import com.product.product.modules.category.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/category")
@@ -18,6 +16,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     private CategoryRequest categoryRequest;
+
     @PostMapping
     @Transactional
     public CategoryResponse save(@RequestBody CategoryRequest request) {
@@ -29,7 +28,21 @@ public class CategoryController {
         categorysave3.setDescription("Books");
         categoryService.save(categorysave1);
         categoryService.save(categorysave2);
-        return categoryService.save(categorysave3);
+        categoryService.save(categorysave3);
+        return categoryService.save(request);
     }
 
+    @GetMapping()
+    public List<CategoryResponse> findA() {
+        return categoryService.findAll();
+    }
+  @GetMapping("{id}")
+    public CategoryResponse findById(@PathVariable Integer id) {
+        return categoryService.findByIdResponse(id);
+    }
+
+    @GetMapping("description/{description}")
+    public List<CategoryResponse> findById(@PathVariable String description) {
+        return categoryService.findByDescription(description);
+    }
 }

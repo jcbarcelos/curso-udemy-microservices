@@ -43,7 +43,7 @@ public class ProductController {
         productService.save(productsave2);
         productService.save(productsave3);
 
-        return productService.save(productsave1);
+        return productService.save(request);
     }
 
 }

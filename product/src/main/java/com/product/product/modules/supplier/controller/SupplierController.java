@@ -29,7 +29,8 @@ public class SupplierController {
         suppliersave3.setName("Livraria Online");
         supplierService.save(suppliersave1);
         supplierService.save(suppliersave2);
-        return supplierService.save(suppliersave3);
+        supplierService.save(suppliersave3);
+        return supplierService.save(request);
     }
 
 }
