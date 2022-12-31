@@ -1,18 +1,15 @@
-package com.product.product.modules.product.model;
+package com.spring.productapi.productapi.modules.product.model;
 
-
-import com.product.product.config.exception.EntityWithUUID;
-import com.product.product.modules.category.model.Category;
-import com.product.product.modules.product.dto.ProductRequest;
-import com.product.product.modules.supplier.model.Supplier;
-import jakarta.persistence.*;
+import com.spring.productapi.productapi.modules.category.model.Category;
+import com.spring.productapi.productapi.modules.product.dto.ProductRequest;
+import com.spring.productapi.productapi.modules.supplier.model.Supplier;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 @Data
 @Builder
@@ -20,9 +17,9 @@ import java.util.Optional;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product extends EntityWithUUID {
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

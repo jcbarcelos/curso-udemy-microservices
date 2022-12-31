@@ -1,8 +1,9 @@
-version: '3.8'
+version: '3.1'
 
 services:
 
   auth_db:
+    container_name: auth_db
     image: postgres:11
     restart: always
     environment:
@@ -11,23 +12,24 @@ services:
       POSTGRES_USER: auth_db
       PORT: 5432
     ports:
-      - 5432:5432
-    networks:
-      - microservices
+      - "5432:5432"
 
   product_db:
-    image: postgres:11
+    container_name: product_db
+    image: mysql:8.0.31
     restart: always
     environment:
-      POSTGRES_PASSWORD: product_db
-      POSTGRES_DB: product_db
-      POSTGRES_USER: product_db
+      MYSQL_ROOT_PASSWORD: product_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: product_db
+      MYSQL_RANDOM_ROOT_PASSWORD: product_db
+      MYSQL_PASSWORD: product_db
+      MYSQL_DATABASE: product_db
+      MYSQL_USER: product_db
       PORT: 5433
     ports:
-      - 5433:5432
-    networks:
-      - microservices
-
+      - "3306:3306"
+    volumes:
+      -  "mysqldb:/var/lib/mysql"
   sales-db:
     image: mongo
     container_name: sales-db
@@ -40,11 +42,8 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
     ports:
-      - 27017:27017
-      - 28017:28017
-    networks:
-      - microservices
-
+      - "27017:27017"
+      - "28017:28017"
   sales_rabbit:
     image: rabbitmq:3-management
     container_name: sales_rabbit
@@ -56,9 +55,6 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: rabbit
       RABBITMQ_DEFAULT_PASS: rabbit
-    networks:
-      - microservices
-
   auth-api:
     build: './auth-api'
     volumes:
@@ -69,53 +65,38 @@ services:
     environment:
       - PORT=8080
     ports:
-      - 8080:8080
+      - "8080:8080"
     depends_on:
-      - auth_db
-    networks:
-      - microservices
+      - "auth_db"
 
-  product:
-    build: './product'
-    environment:
-      - PORT=8081
+  productapi:
+    container_name: productapi
+    build: "./productapi"
     ports:
-      - 8081:8081
+      - "8081:8081"
     depends_on:
-      - product_db
-    volumes:
-      - ./product:/app
-      - /home/jc/.m2:/root/.m2
-
-    networks:
-      - microservices
+      - "product_db"
 
   sales-api:
     build: './sales-api'
     restart: on-failure
     command: npm run start
     environment:
-      - PORT=8082
+      PORT: 8082
     ports:
-      - 8082:8082
+      - "8082:8082"
     depends_on:
-      - sales_db
+      - "sales_db"
     volumes:
-      - ./sales-api:/app
-      - nodemodulessales:/app/node_modules
-    networks:
-      - microservices
-
-
+      - "./sales-api:/app"
+      - "nodemodulessales:/app/node_modules"
 volumes:
   nodemodulesauth: {}
-  valumeproduct: {}
+  mysqldb: {}
   nodemodulessales: {}
+  postgres-data: {}
+
 
 networks:
-  microservices: 
-    driver:
-        bridge
-
-
-    
+  network-api:
+    driver: bridge
