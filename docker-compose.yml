@@ -6,6 +6,8 @@ services:
     container_name: auth_db
     image: postgres:11
     restart: always
+    networks:
+      - sales-network
     environment:
       POSTGRES_PASSWORD: auth_db
       POSTGRES_DB: auth_db
@@ -13,27 +15,25 @@ services:
       PORT: 5432
     ports:
       - "5432:5432"
-
-  product_db:
-    container_name: product_db
-    image: mysql:8.0.31
+  product-db:
+    image: postgres:11
+    container_name: product-db
     restart: always
+    networks:
+      - sales-network
     environment:
-      MYSQL_ROOT_PASSWORD: product_db
-      MYSQL_ALLOW_EMPTY_PASSWORD: product_db
-      MYSQL_RANDOM_ROOT_PASSWORD: product_db
-      MYSQL_PASSWORD: product_db
-      MYSQL_DATABASE: product_db
-      MYSQL_USER: product_db
+      POSTGRES_PASSWORD: product-db
+      POSTGRES_DB: product-db
+      POSTGRES_USER: product-db
       PORT: 5433
     ports:
-      - "3306:3306"
-    volumes:
-      -  "mysqldb:/var/lib/mysql"
+      - 5433:5432
   sales-db:
     image: mongo
     container_name: sales-db
     restart: always
+    networks:
+      - sales-network
     environment:
       MONGO_INITDB_ROOT_USERNAME: sales
       MONGO_INITDB_ROOT_PASSWORD: sales
@@ -48,6 +48,8 @@ services:
     image: rabbitmq:3-management
     container_name: sales_rabbit
     restart: always
+    networks:
+      - sales-network
     ports:
       - 5672:5672
       - 25676:25676
@@ -62,6 +64,8 @@ services:
       - nodemodulesauth:/app/node_modules
     restart: on-failure
     command: npm run start
+    networks:
+      - sales-network
     environment:
       - PORT=8080
     ports:
@@ -69,13 +73,30 @@ services:
     depends_on:
       - "auth_db"
 
-  productapi:
-    container_name: productapi
-    build: "./productapi"
+  product-api:
+    container_name: product-api
+    build: "./product-api"
+    networks:
+      - sales-network
     ports:
       - "8081:8081"
     depends_on:
-      - "product_db"
+      - "product-db"
+      - sales_rabbit
+    environment:
+      PORT: 8081
+      API_SECRET: YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY=
+      DB_HOST: product-db
+      DB_NAME: product-db
+      DB_USER: product-db
+      DB_PASSWORD: product-db
+      DB_PORT: 5432
+      RABBIT_MQ_HOST: sales_rabbit
+      RABBIT_MQ_PORT: 5672
+      RABBIT_MQ_USER: guest
+      RABBIT_MQ_PASSWORD: guest
+      SALES_HOST: sales-api
+      SALES_PORT: 8082
 
   sales-api:
     build: './sales-api'
@@ -83,8 +104,15 @@ services:
     command: npm run start
     environment:
       PORT: 8082
+      API_SECRET: YXV0aC1hcGktc2VjcmV0LWNvbnRhaW5lci0xMjM0NTY
+      MONGO_DB_URL: mongodb://sales:sales@sales-db:27017/sales
+      RABBIT_MQ_URL: amqp://guest:guest@sales_rabbit:5672/
+      PRODUCT_API_URL: http://product-api:8081/api/product
+      NODE_ENV: container
     ports:
       - "8082:8082"
+    networks:
+      - sales-network
     depends_on:
       - "sales_db"
     volumes:
@@ -98,5 +126,5 @@ volumes:
 
 
 networks:
-  network-api:
+ sales-network:
     driver: bridge

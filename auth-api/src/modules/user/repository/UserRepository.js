@@ -1,5 +1,6 @@
 import { messageErrorNotFound } from '../../../helps/messages.js'
 import User from '../model/UserModel.js'
+import express from 'express';
 
 class UserRepository {
   async findById(id) {
@@ -13,7 +14,16 @@ class UserRepository {
   }
   async findByEmail(email) {
     try {
-      return await User.findOne({ where: { email } })
+      const user = await User.findOne({ where: { email } })
+      const authUser = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      }
+
+      let request = express.request;
+      request.authUser = authUser
+      return user
     } catch (error) {
       return {
         message: `${email} ${messageErrorNotFound}`,

@@ -8,6 +8,7 @@ import { BEARER } from '../constants/HttpStatus.js'
 export default async (request, response, next) => {
   try {
     const { authorization } = request.headers
+    console.log('authorization: ', authorization);
     if (!authorization) {
       throw new AuthValidation(UNAUTHORIZED, `${messageErrorAuthAuthorization}`)
     }

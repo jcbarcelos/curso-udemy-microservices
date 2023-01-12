@@ -14,8 +14,8 @@ import UserRepository from '../repository/UserRepository.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { messageErrorAuthenticatedUser } from '../../../helps/messages.js'
-import { response } from 'express'
-import Valitation from '../../../exceptions/Valitation.js'
+
+
 
 class UserService {
   async findByEmail(request) {
@@ -24,8 +24,7 @@ class UserService {
       const { authUser } = request
       Validation.validationValueData(email)
       let user = await UserRepository.findByEmail(email)
-
-      await Valitation.validationAuthenticatedUser(user, authUser)
+      await this.validationAuthenticatedUser(user, authUser)
     
       return {
         status: SUCCESS,
@@ -39,23 +38,28 @@ class UserService {
       return ReturnErrorJson.ErroJson(error)
     }
   }
-
+  async validationAuthenticatedUser(user, authUser) {
+    
+    if (user.dataValues.id !== authUser?.id) {
+      throw new ExceptionValidation(
+        FORBINDDEN,
+        `${messageErrorAuthenticatedUser}`,
+      )
+    }
+  }
   async getAccessToken(request, response) {
     try {
       const { email, password } = request.body
-
+ 
       await this.validationAccessToken(email, password)
       let user = await UserRepository.findByEmail(email)
       await Validation.validationNotFoundAuth(user.email)
       await this.validationPassword(password, user.password)
-      let authUser = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-      }
+     
       const accessToken = jwt.sign({ authUser }, API_SECRET, {
         expiresIn: '1d',
       })
+
       return {
         status: SUCCESS,
         accessToken: accessToken,

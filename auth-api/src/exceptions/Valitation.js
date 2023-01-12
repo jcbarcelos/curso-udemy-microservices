@@ -31,7 +31,7 @@ class Validation {
     }
   }
   async validationAuthenticatedUser(user, authUser) {
-    console.log('validationAuthenticatedUser', user.dataValues.id, authUser.id)
+    console.log('validationAuthenticatedUser', {user: user.dataValues.id, authUser: authUser})
     if (user.dataValues.id !== authUser.id) {
       throw new ExceptionValidation(
         FORBINDDEN,
